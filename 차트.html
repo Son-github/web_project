@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <title>COVID-19</title>
+    <style>
+      html,
+      body {
+        margin: 0px;
+        padding: 0;
+        height: 100%;
+      }
+      table{
+        border-collapse: collapse;
+        width: auto;
+        margin: auto;
+      } <!--table 스타일 설정-->
+      caption{
+        font-size:8pt;
+        padding-top : 3%;
+        padding-bottom: 1%;
+      } <!--caption 스타일 설정-->
+      thead{
+        border-bottom: 3px black;
+      } <!--thead 스타일 설정-->
+      td{
+        text-align: center;
+        font-size: 10pt;
+      } 
+      tr{
+        text-align: center;
+      }
+      th{
+        text-align: center;
+      }
+      article {
+        padding-left: 2%;
+      } 
+      h1 {
+        font-size: 38px;
+        font-weight: bold;
+      }
+      h4 {
+        padding-top: 3%;
+        font-size: 15pt;
+      }
+      li {
+        font-size: 10pt;
+      }
+      span {
+        color: red;
+      }
+      .header {
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 700px;
+        height: 60px;
+        padding: 2% 9%;
+        color: #000000;
+        background: white;
+        font-weight: bold;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .section {
+        width: 86%;
+        height: auto;
+        float: left;
+        background: rgb(204, 203, 203);
+        border: 0.1px solid black;
+      }
+      .footer {
+        width: 100%;
+        height: 20px;
+        clear: both;
+        background: white;
+        text-align: right;
+      }
+      #menu {
+        padding: 0px 21%;
+        font-weight: bold;
+        font-size: 30pt;
+      }
+      #nav {
+        width: 13.7%;
+        height: auto;
+        float: left;
+        background: white;
+        border-top: 0.1px solid black;
+      }
+      #nav ul {
+        margin: 0;
+        width: 70%;
+      }
+      #nav ul li {
+        list-style-type: none;
+        text-decoration: none;
+        padding-top: 10%;
+      }
+      #nav ul li a {
+        color: black;
+        text-decoration: none;
+        font-size: 11pt;
+      }
+      #nav ul li a:hover {
+        text-decoration: underline black;
+      }
+      #menubar {
+        background: white;
+        width: 100%;
+        padding: auto;
+      }
+      #menubar ul {
+        margin: 0;
+        padding: 0 60%;
+        width: 100%;
+        text-align: 40%;
+      }
+      #menubar ul li {
+        display: inline-block;
+        list-style-type: none;
+        padding: 0px 3%;
+      }
+      #menubar ul li a {
+        color: black;
+        text-decoration: none;
+        font-size: 13pt;
+      }
+      #menubar ul li a:hover {
+        color: violet;
+      }
+    </style>
+  </head>
+  <body> <!--body 시작-->
+    <header class="header"> <!--header 시작-->
+      <h1><img src="covid19(2).jpg" width="220px 150px" /></h1> <!--이미지 삽입-->
+      <nav id="menubar">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="COVID.html">COVID-19</a></li>
+          <li><a href="피해지원정책.html">피해지원정책</a></li>
+          <li><a href="다양한사이트.html">다양한사이트</a></li>
+        </ul>
+      </nav>
+    </header>
+    <nav id="nav">
+      <p id="menu">menu</p> <!--menu 시작-->
+      <ul>
+        <li><a href="#국내">국내 누적 감염</a></li>
+        <li><a href="#세계">세계별 누적 감염</a></li>
+        <li><a href="#시도">시도별 누적 감염</a></li>
+      </ul>
+    </nav>
+    <section class="section"> <!--section 시작-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script><!--해당 cdn을 이용해 chart.js를 사용-->
+      <article id="국내" style="padding-top: 0.6%"> <!--article 시작-->
+        <h2>국내 누적 감염</h2>
+        <hr>
+        <table border="1"><!--table 삽입-->
+          <caption>국내 누적 감염(2021-12-10)</caption>
+          <thead>
+            <tr><th></th><th>누적 확진자</th><th>누적 사망자</th></tr>
+          </thead>
+          <tbody>
+            <tr><td style="font-weight: bold;">국내</td><td>494,542명</td><td>4,210명
+            </td></tr>
+          </tbody>
+        </table>
+        <table border="1"><!--table 삽입-->
+          <caption style="padding-top: 8%;">국내 연령별 누적 감염(2021-12-10)</caption>
+          <thead>
+            <tr><th></th><th>0~9세</th><th>10~19세</th><th>20~29세</th><th>30~39세</th><th>40~49세</th><th>50~59세</th><th>60~69세</th><th>70~79세</th><th>80세이상</th></tr>
+          </thead>
+          <tbody>
+            <tr><td style="font-weight: bold;">누적(명)</td><td>34,467명</td><td>50,285명</td><td>81,890명</td><td>75,899명</td><td>75,399명</td><td>75,438명</td><td>69,297명</td><td>30,771명</td><td>17,137명</td></tr>
+          </tbody>
+        </table>
+	      <canvas id="myChart" style="padding-top: 8%;"></canvas><!--그래프가 들어갈 공간 설정-->
+        <script type="text/javascript">
+          var context = document.getElementById('myChart').getContext('2d')
+          var myChart = new Chart(context, {
+            type: 'bar',
+            data: {
+              labels: [
+                '0~9세',
+                '10~19세',
+                '20~29세',
+                '30~39세',
+                '40~49세',
+                '50~59세',
+                '60~69세',
+                '70~79세',
+                '80세이상'
+              ],
+              datasets: [
+                {
+                  label: '연령별 누적 확진자수',
+                  fill: false,
+                  data: [
+                    34467,
+                    50285,
+                    81890,
+                    75899,
+                    75399,
+                    75438,
+                    69297,
+                    30771,
+                    17137
+                  ],
+                  backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(155, 100, 34, 0.2)',
+                    'rgba(133,220, 32, 0.2)',
+                    'rgba(54, 32, 234, 0.2)',
+                  ],
+                  borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(155, 100, 34, 1)',
+                    'rgba(133, 220, 32, 1)',
+                    'rgba(54, 32, 234, 1)',
+                  ],
+                  borderWidth: 1,
+                }
+              ],
+            },
+            options: {
+              scales: {
+                yAxes: [
+                  {
+                    ticks: {
+                      beginAtZero: true,
+                    },
+                  },
+                ],
+              },
+            },
+          })
+          </script><!--그래프 스타일을 자바스크립트를 사용해 설정(chart.js사용)-->
+      </article>
+      </script>
+      <article id="세계" style="padding-top: 15%"> <!--article 시작-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+        <h2>세계 누적 감염</h2>
+        <hr>
+        <table border="1"><!--table 삽입-->
+            <caption>나라별 누적 감염(2021-12-10)</caption>
+            <thead>
+              <tr><th></th><th>미국</th><th>영국</th><th>프랑스</th><th>독일</th><th>스페인</th><th>이탈리아</th><th>일본</th><th>호주</th><th>캐나다</th></tr>
+            </thead>
+            <tbody>
+              <tr><td style="font-weight: bold;">누적 감염자 수</td><td>49,241,986명</td><td>10,610,962명</td><td>7,867,391명</td><td>6,423,520명</td><td>5,273,178명</td><td>5,164,780명</td><td>1,728,410명</td><td>223,912명</td><td>1,818,742명</td></tr>
+              <tr><td style="font-weight: bold;">누적 사망자 수</td><td>787,135명</td><td>146,135명</td><td>117,661명</td><td>104,996명</td><td>88,321명</td><td>134,551명</td><td>18,371명</td><td>2,082명</td><td>29,852명</td></tr>
+            </tbody>
+          </table>
+          <canvas id="myChart2" style="padding-top: 8%;"></canvas><!--그래프 삽입-->
+          <script type="text/javascript">
+            var context = document.getElementById('myChart2').getContext('2d')
+            var myChart = new Chart(context, {
+              type: 'bar',
+              data: {
+                labels: [
+                  '미국',
+                  '영국',
+                  '프랑스',
+                  '독일',
+                  '스페인',
+                  '이탈리아',
+                  '일본',
+                  '호주',
+                  '케나다'
+                ],
+                datasets: [
+                  {
+                    label: '나라별 누적 확진자수',
+                    fill: false,
+                    data: [
+                      49241986,
+                      10610962,
+                      7867391,
+                      6423520,
+                      5273178,
+                      5164780,
+                      1728410,
+                      223912,
+                      1818742
+                    ],
+                    backgroundColor: [
+                      'rgba(255, 99, 132, 0.2)',
+                      'rgba(54, 162, 235, 0.2)',
+                      'rgba(255, 206, 86, 0.2)',
+                      'rgba(75, 192, 192, 0.2)',
+                      'rgba(153, 102, 255, 0.2)',
+                      'rgba(255, 159, 64, 0.2)',
+                      'rgba(155, 100, 34, 0.2)',
+                      'rgba(133,220, 32, 0.2)',
+                      'rgba(54, 32, 234, 0.2)',
+                    ],
+                    borderColor: [
+                      'rgba(255, 99, 132, 1)',
+                      'rgba(54, 162, 235, 1)',
+                      'rgba(255, 206, 86, 1)',
+                      'rgba(75, 192, 192, 1)',
+                      'rgba(153, 102, 255, 1)',
+                      'rgba(255, 159, 64, 1)',
+                      'rgba(155, 100, 34, 1)',
+                      'rgba(133, 220, 32, 1)',
+                      'rgba(54, 32, 234, 1)',
+                    ],
+                    borderWidth: 1,
+                  },
+                    {
+                            label: '나라별 누적 사망자수',
+                            type:'line',
+                            fill: false,
+                            data: [
+                                787135,
+                                146135,
+                                117661,
+                                104996,
+                                88321,
+                                134551,
+                                18371,
+                                2082,
+                                29852
+                            ],
+                            backgroundColor: 'rgb(0,0,0,0.5)',
+                            borderColor: 'rgb(0,0,0,0.5)'
+                        } 
+                ],
+              },
+              options: {
+                scales: {
+                  yAxes: [
+                    {
+                      ticks: {
+                        beginAtZero: true,
+                      },
+                    },
+                  ],
+                },
+              },
+            })
+            </script>
+      </article>
+      <article id="시도" style="padding-top: 15%"> <!--article 시작-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+        <h2>시도별 누적 감염</h2>
+        <hr>
+        <table border="1"><!--table 삽입-->
+            <caption>시도별 누적 감염(2021-12-10)</caption>
+            <thead>
+              <tr><th></th><th>서울</th><th>부산</th><th>대구</th><th>인천</th><th>광주</th><th>대전</th><th>울산</th><th>경기</th></tr>
+            </thead>
+            <tbody>
+              <tr><td style="font-weight: bold;">누적 감염자 수</td><td>180,031명</td><td>18,584명</td><td>20,260명</td><td>28,639명</td><td>6,720명</td><td>10,026명</td><td>5,899명</td><td>152,303명</td></tr>
+            </tbody>
+          </table>
+          <canvas id="myChart3" style="padding-top: 8%;"></canvas><!--그래프 삽입-->
+          <script type="text/javascript">
+            var context = document.getElementById('myChart3').getContext('2d')
+            var myChart = new Chart(context, {
+              type: 'bar',
+              data: {
+                labels: [
+                  '서울',
+                  '부산',
+                  '대구',
+                  '인천',
+                  '광주',
+                  '대전',
+                  '울산',
+                  '경기'
+                ],
+                datasets: [
+                  {
+                    label: '시도별 누적 확진자수',
+                    fill: false,
+                    data: [
+                      180031,
+                      18584,
+                      20260,
+                      28639,
+                      6720,
+                      10026,
+                      5899,
+                      152303
+                    ],
+                    backgroundColor: [
+                      'rgba(255, 99, 132, 0.2)',
+                      'rgba(54, 162, 235, 0.2)',
+                      'rgba(255, 206, 86, 0.2)',
+                      'rgba(75, 192, 192, 0.2)',
+                      'rgba(153, 102, 255, 0.2)',
+                      'rgba(255, 159, 64, 0.2)',
+                      'rgba(155, 100, 34, 0.2)',
+                      'rgba(133,220, 32, 0.2)',
+                      'rgba(54, 32, 234, 0.2)',
+                    ],
+                    borderColor: [
+                      'rgba(255, 99, 132, 1)',
+                      'rgba(54, 162, 235, 1)',
+                      'rgba(255, 206, 86, 1)',
+                      'rgba(75, 192, 192, 1)',
+                      'rgba(153, 102, 255, 1)',
+                      'rgba(255, 159, 64, 1)',
+                      'rgba(155, 100, 34, 1)',
+                      'rgba(133, 220, 32, 1)',
+                      'rgba(54, 32, 234, 1)',
+                    ],
+                    borderWidth: 1,
+                  },
+                ],
+              },
+              options: {
+                scales: {
+                  yAxes: [
+                    {
+                      ticks: {
+                        beginAtZero: true,
+                      },
+                    },
+                  ],
+                },
+              },
+            })
+            </script>
+      </article>
+    </section>
+    <footer class="footer">
+      Copyrignt 2021. SonJongin. all rights reserved.
+    </footer>
+  </body>
+</html>

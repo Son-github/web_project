@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <title>Web Project_1</title>
+    <style>
+      p {
+        font-family: 'Times New Roman', serif;
+        font-size: 50px;
+        text-align: center;
+        cursor: default;
+      }
+      .wrap {
+        width: 50%;
+        margin: 50px auto;
+        border: 1px solid #ffffff;
+      }
+      .wrap img {
+        width: 100%;
+        vertical-align: middle;
+      }
+      .wrap-text {
+        padding: 1px 10px;
+        text-align: center;
+        background-color: #ffffff;
+      }
+      #menubar {
+        background: #ffffff;
+      }
+      #menubar ul {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        text-align: center;
+      }
+      #menubar ul li {
+        display: inline-block;
+        list-style-type: none;
+        padding: 0px 2%;
+      }
+      #menubar ul li a {
+        color: black;
+        text-decoration: none;
+      }
+      #menubar ul li a:hover {
+        color: lightslategray;
+        text-decoration: underline rgb(128, 128, 128);
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <p>COVID-19</p>
+      <div class="wrap img">
+        <img src="covid19.png" alt="covid19" />
+        <!--홈화면의 이미지 생성-->
+      </div>
+      <div class="wrap-text">
+        <nav id="menubar">
+          <ul>
+            <li><a href="COVID.html">COVID-19</a></li>
+            <!--리스트에 하이퍼링크를 걸어 각각의 html파일과 연결-->
+            <li><a href="차트.html">감염현황</a></li>
+            <li><a href="피해지원정책.html">피해지원정책</a></li>
+            <li><a href="다양한사이트.html">다양한사이트</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div style="text-align: center; padding-top: 2%">
+        <!--공간을 생성하여 시간이 들어갈 수 있도록 함-->
+        <script>
+          var date = new Date()
+          var hours = date.getHours()
+          var min = date.getMinutes()
+          var sec = date.getSeconds()
+          if (min < 10) {
+            min = '0' + min
+          }
+          if (sec < 10) {
+            sec = '0' + sec
+          }
+          clock = hours + ':' + min + ':' + sec
+          document.write(clock)
+        </script>
+        <!--자바 스크립트를 사용해서 들어간 시간을 입력-->
+      </div>
+    </div>
+  </body>
+</html>
